@@ -1,6 +1,5 @@
-
 import SidebarContent from "./sidebar/SidebarContent"
-import TaskContent from "./task/TaskContent"
+import TaskContent from "./tasks/TaskContent"
  
 function App() {
  
@@ -13,11 +12,10 @@ function App() {
       </div>
       <div className="flex-grow-1">
         <TaskContent/>
- 
       </div>
      </div>
     </>
   )
 }
  
-export default App
+export default App;
