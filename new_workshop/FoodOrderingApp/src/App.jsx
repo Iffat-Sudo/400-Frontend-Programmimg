@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Menu from "./components/Menu";
+import Order from "./components/Order";
+import ThemeToggle from "./components/ThemeToggle";
+import menuData from "./data/menuData";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [order, setOrder] = useState([]);
+    const [darkMode, setDarkMode] = useState(false);
+
+  const addToOrder = (item) => {
+      const exist = order.find((i) => i.id === item.id);
+      
+      if (exist) {
+        setOrder(order.map((i) => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i));
+      } else {
+        setOrder([...order, { ...item, quantity: 1 }]);
+      }
+    };
+
+  const updateQuantity = (id, change) => {
+      setOrder(order.map((item) => item.id === id ? { ...item, quantity: item.quantity + change } : item)
+      .filter((item) => item.quantity > 0));
+    };
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={darkMode ? "bg-dark text-white min-vh-100" : "bg-light min-vh-100"}>
+      <div className="container py-4">
+
+        <h1 className="text-center mb-4">
+          Fast Food Ordering App
+        </h1>
+
+        <ThemeToggle toggleTheme={toggleTheme} />
+
+        <h3>Menu</h3>
+
+        <Menu
+          menu={menuData}
+          addToOrder={addToOrder}
+        />
+
+        <Order
+          order={order}
+          updateQuantity={updateQuantity}
+        />
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
+    
 }
 
-export default App
+export default App;
