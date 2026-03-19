@@ -1,40 +1,19 @@
-let todos = [
+export const initialTodos = [
   {
     id: 1,
-    title: "Learn React",
-    description: "Study components and hooks",
-    dueDate: "2025-07-10",
+    title: "Example Todo 1",
+    description: "Welcome to your To-Do app! Try adding a new task above.",
+    dueDate: "2026-07-10T10:00",
+    createdDate: "2026-03-19",
     assignPerson: "John Doe",
-    completed: false,
-    createdAt: new Date().toISOString()
+    completed: false
   }
 ];
 
-// GET
-export const getTodos = () => {
-  return [...todos];
-};
-
-// ADD
-export const addTodo = (todo) => {
-  const newTodo = {
-    ...todo,
-    id: Date.now(),
-    completed: false,
-    createdAt: new Date().toISOString()
-  };
-  todos.push(newTodo);
-  return newTodo;
-};
-
-// DELETE
-export const deleteTodo = (id) => {
-  todos = todos.filter(t => t.id !== id);
-};
-
-// UPDATE (complete/edit)
-export const updateTodo = (updatedTodo) => {
-  todos = todos.map(t =>
-    t.id === updatedTodo.id ? updatedTodo : t
-  );
-};
+export const userList = [
+  "Mattias Hellman", 
+  "Sindhuja Parthasarathy", 
+  "Iffat Zabin", 
+  "Zackaria Azzoug", 
+  "Alexander Haitin"
+];
